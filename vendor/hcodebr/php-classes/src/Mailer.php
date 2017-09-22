@@ -6,8 +6,8 @@ use Rain\Tpl;
 
 class Mailer {
 
-	const USERNAME = "teste@gmail.com";
-	const PASSWORD = "";
+	const USERNAME = "anthonyribeiro1910@gmail.com";
+	const PASSWORD = "\$this->1598753214789632";
 	const NAME_FROM = "Hcode Store";
 
 	private $mail;
@@ -50,7 +50,7 @@ class Mailer {
 		// 0 = off (for production use)
 		// 1 = client messages
 		// 2 = client and server messages
-		$this->mail->SMTPDebug = 2;
+		$this->mail->SMTPDebug = 0;
 
 		//Ask for HTML-friendly debug output
 		$this->mail->Debugoutput = 'html';
