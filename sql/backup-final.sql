@@ -390,7 +390,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_addresses_save`(
+CREATE PROCEDURE `sp_addresses_save`(
 pidaddress int(11), 
 pidperson int(11),
 pdesaddress varchar(128),
@@ -446,7 +446,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_carts_save`(
+CREATE PROCEDURE `sp_carts_save`(
 pidcart INT,
 pdessessionid VARCHAR(64),
 piduser INT,
@@ -494,7 +494,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_categories_save`(
+CREATE PROCEDURE `sp_categories_save`(
 pidcategory INT,
 pdescategory VARCHAR(64)
 )
@@ -532,7 +532,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_orders_save`(
+CREATE PROCEDURE `sp_orders_save`(
 pidorder INT,
 pidcart int(11),
 piduser int(11),
@@ -586,7 +586,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_products_save`(
+CREATE PROCEDURE `sp_products_save`(
 pidproduct int(11),
 pdesproduct varchar(64),
 pvlprice decimal(10,2),
@@ -638,7 +638,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_userspasswordsrecoveries_create`(
+CREATE PROCEDURE `sp_userspasswordsrecoveries_create`(
 piduser INT,
 pdesip VARCHAR(45)
 )
@@ -666,7 +666,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_usersupdate_save`(
+CREATE PROCEDURE `sp_usersupdate_save`(
 piduser INT,
 pdesperson VARCHAR(64), 
 pdeslogin VARCHAR(64), 
@@ -715,7 +715,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_users_delete`(
+CREATE PROCEDURE `sp_users_delete`(
 piduser INT
 )
 BEGIN
@@ -757,7 +757,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_users_save`(
+CREATE PROCEDURE `sp_users_save`(
 pdesperson VARCHAR(64), 
 pdeslogin VARCHAR(64), 
 pdespassword VARCHAR(256), 

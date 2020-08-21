@@ -4,9 +4,9 @@ namespace Hcode\DB;
 
 class Sql {
 
-	const HOSTNAME = "127.0.0.1";
-	const USERNAME = "root";
-	const PASSWORD = "root";
+	const HOSTNAME = "db-mysql-do-user-1590103-0.a.db.ondigitalocean.com";
+	const USERNAME = "doadmin";
+	const PASSWORD = "jeqez6dam9knay4r";
 	const DBNAME = "db_ecommerce";
 
 	private $conn;
