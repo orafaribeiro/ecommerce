@@ -110,7 +110,9 @@ $app->get("/admin/users/create", function(){
 
 	$page = new PageAdmin();
 
-	$page->setTpl("users-create");
+	$page->setTpl("users-create", array(
+		"error" => User::getError()
+	));
 
 });
 
@@ -122,7 +124,15 @@ $app->get("/admin/users/:iduser/delete", function($iduser){
 
 	$user->get((int)$iduser);
 
-	$user->delete();
+	if ((int)$user->getiduser() !== (int)User::getFromSession()->getiduser()) {
+
+		$user->delete();
+
+	} else {
+
+		throw new Exception("Você não pode excluir o usuário logado");
+
+	}
 
 	header("Location: /admin/users");
 	exit;
@@ -150,6 +160,14 @@ $app->post("/admin/users/create", function(){
 	User::verifyLogin();
 
 	$user = new User();
+
+	if (User::checkLoginExist($_POST['desemail']) === true) {
+
+		User::setError("Este endereço de e-mail já está cadastrado.");
+		header("Location: /admin/users/create");
+		exit;
+
+	}
 
 	$_POST['inadmin'] = (isset($_POST['inadmin'])) ? 1 : 0;
 

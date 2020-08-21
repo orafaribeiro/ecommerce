@@ -90,5 +90,17 @@
     <!-- Slider -->
     <script type="text/javascript" src="/res/site/js/bxslider.min.js"></script>
 	<script type="text/javascript" src="/res/site/js/script.slider.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            $("input[type=number].input-text").on("keydown", function(e){
+                e.preventDefault();
+                if(e.which == 13) {
+                    // Aqui vai o Ajax
+                }
+            });
+
+        });
+    </script>
   </body>
 </html>

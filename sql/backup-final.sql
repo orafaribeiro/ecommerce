@@ -28,6 +28,7 @@ CREATE TABLE `tb_addresses` (
   `desaddress` varchar(128) NOT NULL,
   `descomplement` varchar(32) DEFAULT NULL,
   `descity` varchar(32) NOT NULL,
+  `desnumber` varchar(32) NOT NULL DEFAULT 100,
   `desstate` varchar(32) NOT NULL,
   `descountry` varchar(32) NOT NULL,
   `deszipcode` char(8) NOT NULL,
@@ -45,7 +46,7 @@ CREATE TABLE `tb_addresses` (
 
 LOCK TABLES `tb_addresses` WRITE;
 /*!40000 ALTER TABLE `tb_addresses` DISABLE KEYS */;
-INSERT INTO `tb_addresses` VALUES (1,7,'Avenida Brasil','de 26647 a 27767 - lado Ã­mpar','Rio de Janeiro','RJ','Brasil','21615338','Deodoro','2017-09-06 16:04:03'),(2,7,'Avenida Brasil','de 26647 a 27767 - lado ímpar','Rio de Janeiro','RJ','Brasil','21615338','Deodoro','2017-09-06 16:05:19'),(3,1,'Avenida Paulista','de 612 a 1510 - lado par','São Paulo','SP','Brasil','01310100','Bela Vista','2017-09-08 11:39:31'),(4,1,'Avenida Paulista','de 612 a 1510 - lado par','São Paulo','SP','Brasil','01310100','Bela Vista','2017-09-08 11:39:54'),(5,1,'Avenida Paulista','de 612 a 1510 - lado par','São Paulo','SP','Brasil','01310100','Bela Vista','2017-09-08 12:19:04'),(6,1,'Avenida Paulista','de 612 a 1510 - lado par','São Paulo','SP','Brasil','01310100','Bela Vista','2017-09-08 12:20:07'),(7,1,'Avenida Paulista','de 612 a 1510 - lado par','São Paulo','SP','Brasil','01310100','Bela Vista','2017-09-08 12:21:06'),(8,1,'Avenida Paulista','de 612 a 1510 - lado par','São Paulo','SP','Brasil','01310100','Bela Vista','2017-09-08 12:22:33'),(9,1,'Avenida Paulista','de 612 a 1510 - lado par','São Paulo','SP','Brasil','01310100','Bela Vista','2017-09-08 12:27:54'),(10,1,'Avenida Paulista','de 612 a 1510 - lado par','São Paulo','SP','Brasil','01310100','Bela Vista','2017-09-21 13:59:47');
+INSERT INTO `tb_addresses` VALUES (1,7,'Avenida Brasil','de 26647 a 27767 - lado Ã­mpar','Rio de Janeiro', 100,'RJ','Brasil','21615338','Deodoro','2017-09-06 16:04:03'),(2,7,'Avenida Brasil','de 26647 a 27767 - lado ímpar','Rio de Janeiro', 100,'RJ','Brasil','21615338','Deodoro','2017-09-06 16:05:19'),(3,1,'Avenida Paulista','de 612 a 1510 - lado par','São Paulo', 100,'SP','Brasil','01310100','Bela Vista','2017-09-08 11:39:31'),(4,1,'Avenida Paulista','de 612 a 1510 - lado par','São Paulo', 100,'SP','Brasil','01310100','Bela Vista','2017-09-08 11:39:54'),(5,1,'Avenida Paulista','de 612 a 1510 - lado par','São Paulo', 100,'SP','Brasil','01310100','Bela Vista','2017-09-08 12:19:04'),(6,1,'Avenida Paulista','de 612 a 1510 - lado par','São Paulo', 100,'SP','Brasil','01310100','Bela Vista','2017-09-08 12:20:07'),(7,1,'Avenida Paulista','de 612 a 1510 - lado par','São Paulo', 100,'SP','Brasil','01310100','Bela Vista','2017-09-08 12:21:06'),(8,1,'Avenida Paulista','de 612 a 1510 - lado par','São Paulo', 100,'SP','Brasil','01310100','Bela Vista','2017-09-08 12:22:33'),(9,1,'Avenida Paulista','de 612 a 1510 - lado par','São Paulo', 100,'SP','Brasil','01310100','Bela Vista','2017-09-08 12:27:54'),(10,1,'Avenida Paulista','de 612 a 1510 - lado par','São Paulo', 100,'SP','Brasil','01310100','Bela Vista','2017-09-21 13:59:47');
 /*!40000 ALTER TABLE `tb_addresses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -387,7 +388,7 @@ UNLOCK TABLES;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_addresses_save`(
 pidaddress int(11), 
@@ -395,6 +396,7 @@ pidperson int(11),
 pdesaddress varchar(128),
 pdescomplement varchar(32),
 pdescity varchar(32),
+pdesnumber varchar(32),
 pdesstate varchar(32),
 pdescountry varchar(32),
 pdeszipcode char(8),
@@ -410,6 +412,7 @@ BEGIN
             desaddress = pdesaddress,
             descomplement = pdescomplement,
             descity = pdescity,
+            desnumber = pdesnumber,
             desstate = pdesstate,
             descountry = pdescountry,
             deszipcode = pdeszipcode, 
@@ -418,8 +421,8 @@ BEGIN
         
     ELSE
 		
-		INSERT INTO tb_addresses (idperson, desaddress, descomplement, descity, desstate, descountry, deszipcode, desdistrict)
-        VALUES(pidperson, pdesaddress, pdescomplement, pdescity, pdesstate, pdescountry, pdeszipcode, pdesdistrict);
+		INSERT INTO tb_addresses (idperson, desaddress, descomplement, descity, desnumber, desstate, descountry, deszipcode, desdistrict)
+        VALUES(pidperson, pdesaddress, pdescomplement, pdescity, pdesnumber, pdesstate, pdescountry, pdeszipcode, pdesdistrict);
         
         SET pidaddress = LAST_INSERT_ID();
         
@@ -441,7 +444,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_carts_save`(
 pidcart INT,
@@ -489,7 +492,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_categories_save`(
 pidcategory INT,
@@ -527,7 +530,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_orders_save`(
 pidorder INT,
@@ -581,7 +584,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_products_save`(
 pidproduct int(11),
@@ -633,7 +636,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_userspasswordsrecoveries_create`(
 piduser INT,
@@ -661,7 +664,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_usersupdate_save`(
 piduser INT,
@@ -710,7 +713,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_users_delete`(
 piduser INT
@@ -752,7 +755,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_users_save`(
 pdesperson VARCHAR(64), 

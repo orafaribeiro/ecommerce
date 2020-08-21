@@ -8,6 +8,16 @@ $app = new Slim();
 
 $app->config('debug', true);
 
+$app->notFound(function () use ($app) {
+
+  http_response_code(404);
+  echo "ok";
+  exit;
+
+});
+
+define("URL", $_SERVER['REQUEST_URI']);
+
 require_once("functions.php");
 require_once("site.php");
 require_once("admin.php");

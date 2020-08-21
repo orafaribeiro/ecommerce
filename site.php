@@ -69,12 +69,18 @@ $app->get("/cart", function(){
 
 	$cart = Cart::getFromSession();
 
+	// var_dump($cart->getUserProducts());
+	// exit;
+
 	$page = new Page();
+
+	var_dump(utf8_encode(Cart::getMsgError()));
+	// exit;
 
 	$page->setTpl("cart", array(
 		"cart"=>$cart->getValues(),
 		"products"=>$cart->getProducts(),
-		"error"=>Cart::getMsgError()
+		"error"=>utf8_encode(Cart::getMsgError())
 	));
 
 });
@@ -478,6 +484,9 @@ $app->get("/profile", function(){
 
 	$user = User::getFromSession();
 
+	// var_dump($user->getValues());
+	// exit;
+
 	$page = new Page();
 
 	$page->setTpl("profile", array(
@@ -518,6 +527,7 @@ $app->post("/profile", function(){
 
 	}
 
+	$_POST['iduser'] = $user->getiduser();
 	$_POST['inadmin'] = $user->getinadmin();
 	$_POST['despassword'] = $user->getdespassword();
 	$_POST['deslogin'] = $_POST['desemail'];
@@ -525,6 +535,8 @@ $app->post("/profile", function(){
 	$user->setData($_POST);
 
 	$user->update();
+
+	$user->setToSession();
 
 	User::setSuccess("Dados alterados com sucesso!");
 

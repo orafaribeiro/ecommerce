@@ -132,6 +132,9 @@ class Product extends Model {
 			$image = imagecreatefrompng($file['tmp_name']);
 			break;
 
+			default:
+			$image = imagecreatefromjpeg($file['tmp_name']);
+
 		}
 
 		$path = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR .

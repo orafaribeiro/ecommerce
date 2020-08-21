@@ -52,21 +52,7 @@
                       <td><?php echo htmlspecialchars( $value1["desperson"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                       <td><?php echo htmlspecialchars( $value1["desemail"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                       <td><?php echo htmlspecialchars( $value1["deslogin"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td/>
-                      <td>
-                        <?php if( $value1["inadmin"] == 1 ){ ?>
-                          Administrador
-                        <?php }else{ ?>
-                          <?php if( $value1["inadmin"] == 2 ){ ?>
-                            Ouvidor
-                          <?php }else{ ?>
-                            <?php if( $value1["inadmin"] == 3 ){ ?>
-                              Cidadão
-                            <?php }else{ ?>
-                              Consulta
-                            <?php } ?>
-                          <?php } ?>
-                        <?php } ?>
-                      </td>
+                      <td><?php if( $value1["inadmin"] == 1 ){ ?>Sim<?php }else{ ?>Não<?php } ?></td>
                       <td>
                         <a href="/admin/users/<?php echo htmlspecialchars( $value1["iduser"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
                         <a href="/admin/users/<?php echo htmlspecialchars( $value1["iduser"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/password" class="btn btn-default btn-xs"><i class="fa fa-unlock"></i> Alterar Senha</a>

@@ -1,4 +1,4 @@
-<!-- Content Wrapper. Contains page content -->
+<?php if(!class_exists('Rain\Tpl')){exit;}?><!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -21,11 +21,11 @@
         <div class="box-header with-border">
           <h3 class="box-title">Novo Usuário</h3>
         </div>
-        {if="$error != ''"}
+        <?php if( $error != '' ){ ?>
         <div class="alert alert-danger">
-            {$error}
+            <?php echo htmlspecialchars( $error, ENT_COMPAT, 'UTF-8', FALSE ); ?>
         </div>
-        {/if}
+        <?php } ?>
         <!-- /.box-header -->
         <!-- form start -->
         <form role="form" action="/admin/users/create" method="post">

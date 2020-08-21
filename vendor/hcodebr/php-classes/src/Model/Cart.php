@@ -60,6 +60,23 @@ class Cart extends Model {
 
 	}
 
+	public function getUserProducts()
+	{
+
+		$sql = new Sql();
+
+		return $sql->select("
+			SELECT * FROM tb_products a
+				INNER JOIN tb_cartsproducts b ON a.idproduct = b.idproduct
+                INNER JOIN tb_carts c ON b.idcart = c.idcart
+			    INNER JOIN tb_users d ON c.iduser = d.iduser
+			WHERE b.idcart = :idcart;
+		", array(
+			":idcart"=>$this->getidcart()
+		));
+
+	}
+
 	public function getFromSessionID()
 	{
 
@@ -223,27 +240,28 @@ class Cart extends Model {
 				"sCdAvisoRecebimento"=>'S',
 			));
 
-			$xml = simplexml_load_file("http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?".$qs);
+			$xml = simplexml_load_file("http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?".$qs);	
 
 			$result = $xml->Servicos->cServico;
 
 			if ($result->MsgErro != '') {
 
-				Cart::setMsgError($result->MsgErro);
+				Cart::setMsgError((string)$result->MsgErro);
+				return false;				
 
 			} else {
 
 				Cart::clearMsgError();
 
+				$this->setnrdays($result->PrazoEntrega);
+				$this->setvlfreight(Cart::formatValueToDecimal($result->Valor));
+				$this->setdeszipcode($nrzipcode);
+
+				$this->save();
+
+				return $result;
+
 			}
-
-			$this->setnrdays($result->PrazoEntrega);
-			$this->setvlfreight(Cart::formatValueToDecimal($result->Valor));
-			$this->setdeszipcode($nrzipcode);
-
-			$this->save();
-
-			return $result;
 
 		} else {
 
@@ -310,6 +328,16 @@ class Cart extends Model {
 	{
 
 		$this->updateFreight();
+
+		$products = $this->getProducts();
+
+		if (count($products) == 0)
+		{
+
+			$this->setnrdays(NULL);
+			$this->setvlfreight(0);
+
+		}
 
 		$totals = $this->getProductsTotals();
 

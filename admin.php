@@ -15,12 +15,21 @@ $app->get('/admin', function() {
 
 $app->get('/admin/login', function(){
 
-	$page = new PageAdmin(array(
-		"header"=>false,
-		"footer"=>false
-	));
+	if (!User::checkLogin()) {
 
-	$page->setTpl("login");
+		$page = new PageAdmin(array(
+			"header"=>false,
+			"footer"=>false
+		));
+
+		$page->setTpl("login");
+
+	} else {
+
+		header("Location: /admin");
+		exit;
+
+	}
 
 });
 

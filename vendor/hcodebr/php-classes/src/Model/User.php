@@ -10,9 +10,17 @@ class User extends Model {
 
 	const SESSION = "User";
 	const SECRET = "HcodePhp7_Secret";
+	const SECRET_IV = "HcodePhp7_Secret_IV";
 	const ERROR = "UserError";
 	const ERROR_REGISTER = "UserErrorRegister";
 	const SUCCESS = "UserSuccess";
+
+	public function setToSession()
+	{
+
+		$_SESSION[User::SESSION] = $this->getValues();
+
+	}
 
 	public static function getFromSession()
 	{
@@ -173,9 +181,9 @@ class User extends Model {
 
 		$results = $sql->select("CALL sp_usersupdate_save(:iduser, :desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin);", array(
 			":iduser"=>$this->getiduser(),
-			":desperson"=>utf8_decode($this->getdesperson()),
+			":desperson"=>utf8_encode($this->getdesperson()),
 			":deslogin"=>$this->getdeslogin(),
-			":despassword"=>User::getPasswordHash($this->getdespassword()),
+			":despassword"=>$this->getdespassword(),
 			":desemail"=>$this->getdesemail(),
 			":nrphone"=>$this->getnrphone(),
 			":inadmin"=>$this->getinadmin()
@@ -237,7 +245,9 @@ class User extends Model {
 
 				$dataRecovery = $results2[0];
 
-				$code = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_128, User::SECRET, $dataRecovery['idrecovery'], MCRYPT_MODE_ECB));
+				$code = openssl_encrypt($dataRecovery['idrecovery'], 'AES-128-CBC', pack("a16", User::SECRET), 0, pack("a16", User::SECRET_IV));
+
+				$code = base64_encode($code);
 
 				if ($inadmin === true) {
 
@@ -256,10 +266,7 @@ class User extends Model {
 
 				$mailer->send();
 
-				var_dump($mailer);
-				exit;
-
-				return $data;
+				return $link;
 
 			}
 
@@ -270,7 +277,9 @@ class User extends Model {
 	public static function validForgotDecrypt($code)
 	{
 
-		$idrecovery = mcrypt_decrypt(MCRYPT_RIJNDAEL_128, User::SECRET, base64_decode($code), MCRYPT_MODE_ECB);
+		$code = base64_decode($code);
+
+		$idrecovery = openssl_decrypt($code, 'AES-128-CBC', pack("a16", User::SECRET), 0, pack("a16", User::SECRET_IV));
 
 		$sql = new Sql();
 
