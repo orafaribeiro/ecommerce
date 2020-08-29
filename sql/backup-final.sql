@@ -311,7 +311,7 @@ CREATE TABLE `tb_users` (
 
 LOCK TABLES `tb_users` WRITE;
 /*!40000 ALTER TABLE `tb_users` DISABLE KEYS */;
-INSERT INTO `tb_users` VALUES (1,1,'admin','$2y$12$kk3tykNHwIEWBPMuCSyvmubV2EhtQxNjT2HgXkYBLsPannGdy/KyC',1,'2017-03-13 03:00:00'),(7,7,'suporte','$2y$12$0HoqGJEa8UPrgQPYvDbjgOmnnnFXCVMehIRgM0zuPD87VM85Ykwjq',1,'2017-03-15 16:10:27'),(8,8,'','$2y$12$aEeuHG8QdmmcU1cZy.CLb.d8ffjQ4H0fGiNM.51ua9QYgYce.nVWG',0,'2017-09-04 20:43:40'),(9,9,'joao@hcode.com.br','$2y$12$Dz4iQ1CNYCGcOz9OVUoBXu7G7jnhfHcCFBj8l0kz7VPQcA2D.2Llu',0,'2017-09-04 20:50:02'),(10,10,'suporte@hcode.com.br','$2y$12$U1J8BTm4LHRVg8s9I9icneryymudMIdS51hBeIa0w60P8D4VRSs/m',1,'2017-09-06 14:32:15');
+INSERT INTO `tb_users` VALUES (1,1,'admin','$2y$12$hKaYkmysAUxuw4gYLdTL3eyB7eVzwt4.mK4gGCQUYMD0X/YNzINrG',1,'2017-03-13 03:00:00'),(7,7,'suporte','$2y$12$0HoqGJEa8UPrgQPYvDbjgOmnnnFXCVMehIRgM0zuPD87VM85Ykwjq',1,'2017-03-15 16:10:27'),(8,8,'','$2y$12$aEeuHG8QdmmcU1cZy.CLb.d8ffjQ4H0fGiNM.51ua9QYgYce.nVWG',0,'2017-09-04 20:43:40'),(9,9,'joao@hcode.com.br','$2y$12$Dz4iQ1CNYCGcOz9OVUoBXu7G7jnhfHcCFBj8l0kz7VPQcA2D.2Llu',0,'2017-09-04 20:50:02'),(10,10,'suporte@hcode.com.br','$2y$12$U1J8BTm4LHRVg8s9I9icneryymudMIdS51hBeIa0w60P8D4VRSs/m',1,'2017-09-06 14:32:15');
 /*!40000 ALTER TABLE `tb_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
